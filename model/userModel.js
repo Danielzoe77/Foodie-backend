@@ -1,42 +1,22 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs")
+const { Schema } = mongoose;
 
-const userScheme = mongoose.Schema({
-    fullname:{
-        type: String,
-        required: [true, "please enter a name"]
+const userSchema = new Schema({
+    name: String,
+    email: {
+        type : String,
+        trim : true,
+        minLength : 3,
+        required : true
     },
-    email:{
-        type: String,
-        required: [true, "please enter a email"],
-        trim: true,
-        match : [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "please add valid email"]
-    },
-
-    password :{
-        type: String,
-        required: [true, "please add a password"],
-        minLength: [6, "password should be at least 6 characters"],
-        maxLength: [12, "password should not be more than 12 characters"],
-        select: false
-    },
-},
-{
-    timestamps:true
-})
-
-userScheme.pre("save", async function (next){
-    if (!this.isModified("password")){
-        return next()
+    photoURL : String,
+    role :{
+        type : String,
+        enum : ['user', 'admin'],
+        default : 'user'
     }
+    });
 
-    //encrypt password b4 saving to db
-    const salt = await bcrypt.genSalt(10);
-    const hashpassword = await bcrypt.hash(this.password,salt)
-    this.password = hashpassword
-    next()
+const User = mongoose.model("User", userSchema);
 
-
-} )
-const userModel = mongoose.model("Users", userScheme)
-module.exports = userModel;
+module.exports = User
