@@ -15,7 +15,7 @@ const cors = require("cors");
 //jwt
 const verifyJWT = require("./middleware/verifyToken.js");
 const corsOptions = {
-  origin: "*",
+  origin: ["*", "https://admin-dash-mauve.vercel.app", "http://localhost:5173"],
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: [
