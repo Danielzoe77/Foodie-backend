@@ -14,9 +14,7 @@ const getCartsByEmail = asyncHandler ( async (req, res) => {
     }
 });
 
-
-
-// // post a cart when add to cart button is clicked
+// post a cart when add to cart button is clicked
 const addToCart = async (req, res) => {
     const { menuItemId, name, recipe, image, price, quantity, email } = req.body;
     try {
