@@ -15,15 +15,14 @@ const cors = require("cors");
 //jwt
 const verifyJWT = require("./middleware/verifyToken.js");
 const corsOptions = {
-  origin: ["https:/eathathon.vercel.app", "http://localhost:5173"],
+  origin: ["https://eathathon.vercel.app", "http://localhost:5173"],
   credentials: true,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: [
-    " Access-Control-Allow-Origins ",
-    "Content-Type,",
-    "Authorization",
-  ],
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
+
+app.use(cors(corsOptions));
+
 
 const port = 3000;
 //  connectDB();
